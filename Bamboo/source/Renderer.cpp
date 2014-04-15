@@ -57,7 +57,7 @@ HRESULT Renderer::CreateShaders()
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,
 		0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT,
+		{ "colour", 0, DXGI_FORMAT_R32G32B32_FLOAT,
 		0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 
@@ -86,7 +86,7 @@ HRESULT Renderer::CreateShaders()
 }
 
 
-HRESULT Renderer::CreateCube()
+HRESULT Renderer::CreateScene()
 {
 	HRESULT hr = S_OK;
 
@@ -94,7 +94,7 @@ HRESULT Renderer::CreateCube()
 	ID3D11Device* device = m_deviceResources->GetDevice();
 
 	// Create cube geometry.
-	VertexPositionColor CubeVertices[] =
+	VertexPositionColour CubeVertices[] =
 	{
 		{ DirectX::XMFLOAT3(-0.5f, -0.5f, -0.5f), DirectX::XMFLOAT3(0, 0, 0), },
 		{ DirectX::XMFLOAT3(-0.5f, -0.5f, 0.5f), DirectX::XMFLOAT3(0, 0, 1), },
@@ -185,10 +185,10 @@ void Renderer::CreateDeviceDependentResources()
 	);
 
 	// Load the geometry for the spinning cube.
-	auto CreateCubeTask = CreateShadersTask.then(
+	auto CreateSceneTask = CreateShadersTask.then(
 		[this]()
 	{
-		CreateCube();
+		CreateScene();
 	}
 	);
 }
@@ -233,7 +233,7 @@ void Renderer::Render()
 	context->OMSetRenderTargets(1, &renderTarget, depthStencil);
 
 	// Set up the IA stage by setting the input topology and layout.
-	UINT stride = sizeof(VertexPositionColor);
+	UINT stride = sizeof(VertexPositionColour);
 	UINT offset = 0;
 
 	context->IASetVertexBuffers(0, 1, m_pVertexBuffer.GetAddressOf(), &stride, &offset);

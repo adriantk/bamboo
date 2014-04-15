@@ -74,7 +74,7 @@ HRESULT MainClass::CreateDesktopWindow()
 	// Create the window for our viewport.
 	m_hWnd = CreateWindow(
 		m_windowClassName.c_str(),
-		L"Sparta",
+		L"Bamboo Framework",
 		WS_OVERLAPPEDWINDOW,
 		x, y,
 		(m_rc.right - m_rc.left), (m_rc.bottom - m_rc.top),
@@ -94,7 +94,7 @@ HRESULT MainClass::CreateDesktopWindow()
 }
 
 
-HRESULT MainClass::Run(std::shared_ptr<DeviceResources> deviceResources, std::shared_ptr<Renderer> renderer)
+HRESULT MainClass::Run(std::shared_ptr<DeviceResources> deviceResources, std::shared_ptr<Renderer> renderer, std::shared_ptr<InputManager> inputManager)
 {
 	HRESULT hr = S_OK;
 
@@ -111,7 +111,7 @@ HRESULT MainClass::Run(std::shared_ptr<DeviceResources> deviceResources, std::sh
 		// Process window events.
 		// Use PeekMessage() so we can use idle time to render the scene. 
 		bGotMsg = (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE) != 0);
-
+		
 		if (bGotMsg)
 		{
 			// Translate and dispatch the message
@@ -120,6 +120,14 @@ HRESULT MainClass::Run(std::shared_ptr<DeviceResources> deviceResources, std::sh
 		}
 		else
 		{
+			if (inputManager->IsKeyDown(DIK_ESCAPE))
+				PostQuitMessage(S_OK);
+
+			//if (inputManager->IsKeyDown(DIK_F11))
+
+
+			inputManager->Update();
+
 			renderer->Update();
 			renderer->Render();
 

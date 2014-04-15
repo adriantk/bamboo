@@ -26,7 +26,7 @@
 //-----------------------------------------------------------------------------
 // ENTRY POINT
 //-----------------------------------------------------------------------------
-INT WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
+INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLine, int nCmdShow)
 {
 	HRESULT hr = S_OK;
 
@@ -46,14 +46,14 @@ INT WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		std::shared_ptr<Renderer> renderer = std::shared_ptr<Renderer>(new Renderer(deviceResources));
 		renderer->CreateDeviceDependentResources();
 
+		std::shared_ptr<InputManager> inputManager = std::shared_ptr<InputManager>(new InputManager());
+		inputManager->CreateWindowDependentResources((HINSTANCE)GetModuleHandle(NULL), winMain->GetWindowHandle());
+
 		deviceResources->CreateWindowResources(winMain->GetWindowHandle());
 		renderer->CreateWindowSizeDependentResources();
 
-
-		// Run the program.
-		hr = winMain->Run(deviceResources, renderer);
+		hr = winMain->Run(deviceResources, renderer, inputManager);
 	}
 
-	// Cleanup is handled in destructors.
 	return hr;
 }

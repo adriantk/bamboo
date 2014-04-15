@@ -40,17 +40,11 @@ public:
 
 private:
 	HRESULT CreateShaders();
-	HRESULT CreateCube();
+	HRESULT CreateScene();
 	void    CreateViewAndPerspective();
 
-	//-----------------------------------------------------------------------------
-	// Pointer to device resource manager
-	//-----------------------------------------------------------------------------
 	std::shared_ptr<DeviceResources> m_deviceResources;
 
-	//-----------------------------------------------------------------------------
-	// Variables for rendering the cube
-	//-----------------------------------------------------------------------------
 	typedef struct _constantBufferStruct {
 		DirectX::XMFLOAT4X4 world;
 		DirectX::XMFLOAT4X4 view;
@@ -60,23 +54,18 @@ private:
 	// Assert that the constant buffer remains 16-byte aligned.
 	static_assert((sizeof(ConstantBufferStruct) % 16) == 0, "Constant Buffer size must be 16-byte aligned");
 
-	//-----------------------------------------------------------------------------
-	// Vertex data
-	//-----------------------------------------------------------------------------
-	typedef struct _vertexPositionColor
+
+	typedef struct _vertexPositioncolour
 	{
 		DirectX::XMFLOAT3 pos;
-		DirectX::XMFLOAT3 color;
-	} VertexPositionColor;
+		DirectX::XMFLOAT3 colour;
+	} VertexPositionColour;
 
 
 	ConstantBufferStruct m_constantBufferData;
 	unsigned int  m_indexCount;
 	unsigned int  m_frameCount;
 
-	//-----------------------------------------------------------------------------
-	// Direct3D device resources
-	//-----------------------------------------------------------------------------
 	Microsoft::WRL::ComPtr<ID3D11Buffer>            m_pVertexBuffer;
 	Microsoft::WRL::ComPtr<ID3D11Buffer>            m_pIndexBuffer;
 	Microsoft::WRL::ComPtr<ID3D11VertexShader>      m_pVertexShader;

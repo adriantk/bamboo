@@ -15,11 +15,16 @@
 #pragma once
 
 #define WIN32_LEAN_AND_MEAN
+#define DIRECTINPUT_VERSION 0x0800
+
 #include <Windows.h>
 
 #include <d3d11.h>
+#include <dinput.h>
 #include <DirectXMath.h>
 #include <DirectXColors.h>
 #include <wrl.h>
 
 #pragma comment(lib, "d3d11.lib")
+#pragma comment(lib, "dinput8.lib")
+#pragma comment(lib, "dxguid.lib")

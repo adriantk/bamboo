@@ -21,12 +21,14 @@
   <ItemGroup>
     <ClCompile Include="source\Application.cpp" />
     <ClCompile Include="source\DeviceResources.cpp" />
+    <ClCompile Include="source\InputManager.cpp" />
     <ClCompile Include="source\MainClass.cpp" />
     <ClCompile Include="source\Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\DeviceResources.h" />
     <ClInclude Include="source\dxstdafx.h" />
+    <ClInclude Include="source\InputManager.h" />
     <ClInclude Include="source\MainClass.h" />
     <ClInclude Include="source\Renderer.h" />
   </ItemGroup>

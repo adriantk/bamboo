@@ -4,7 +4,7 @@
 // You may obtain a copy of the Licence at :
 //
 // http ://ec.europa.eu/idabc/eupl5
-
+//
 // THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
 // ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO
 // THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
@@ -18,38 +18,25 @@
 //-----------------------------------------------------------------------------
 #pragma once
 #include "dxstdafx.h"
-#include "DeviceResources.h"
-#include "Renderer.h"
-#include "InputManager.h"
-
-#include <string>
-#include <memory>
 
 //-----------------------------------------------------------------------------
 // CLASS DECLARATIONS
 //-----------------------------------------------------------------------------
-
-class MainClass
+class InputManager
 {
 public:
-	MainClass();
-	~MainClass();
+	InputManager();
+	~InputManager();
 
-	HRESULT CreateDesktopWindow();
+	HRESULT CreateWindowDependentResources(HINSTANCE hinstance, HWND hwnd);
+	HRESULT Update();
 
-	HWND GetWindowHandle() { return m_hWnd; };
-
-	static LRESULT CALLBACK StaticWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-
-	HRESULT Run(std::shared_ptr<DeviceResources> deviceResources, std::shared_ptr<Renderer> renderer, std::shared_ptr<InputManager> inputManager);
+	bool IsKeyDown(UINT key);
 
 private:
-	HMENU     m_hMenu;
-	RECT      m_rc;
-	HWND      m_hWnd;
+	IDirectInput8*			m_pdirectInput;
+	IDirectInputDevice8*	m_pkeyboard;
 
+	UCHAR m_keys[256];
 };
 
-// These are STATIC because this sample only creates one window.
-static HINSTANCE m_hInstance;
-static std::wstring m_windowClassName;

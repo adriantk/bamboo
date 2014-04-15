@@ -42,7 +42,7 @@ HRESULT DeviceResources::CreateDeviceResources()
 		D3D_FEATURE_LEVEL_11_1
 	};
 
-	// This flag adds support for surfaces with a color-channel ordering different
+	// This flag adds support for surfaces with a colour-channel ordering different
 	// from the API default. It is required for compatibility with Direct2D.
 	UINT deviceFlags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
 
@@ -101,11 +101,7 @@ HRESULT DeviceResources::CreateWindowResources(HWND hWnd)
 	{
 		adapter->GetParent(IID_PPV_ARGS(&factory));
 
-		hr = factory->CreateSwapChain(
-			m_pd3dDevice.Get(),
-			&desc,
-			&m_pDXGISwapChain
-			);
+		hr = factory->CreateSwapChain(m_pd3dDevice.Get(), &desc, &m_pDXGISwapChain);
 	}
 
 	// Configure the back buffer, stencil buffer, and viewport.
